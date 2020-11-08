@@ -2,10 +2,10 @@
 # If you want to exclude one or more folders from this automated process then add the folders to the EXCLUDE variable.
 # You can manually add source and include files below, libraries and library folders have to be added manually.
 
-EXCLUDE := source/Window source/School_projects/Subdivision/Code/Main source/School_projects/Rasterizer source/School_projects/Collision source/imgui-1.79/misc source/imgui-1.79/examples
+EXCLUDE := source/Window
 
 CSRCS := source/Window/glad/src/glad.c
-CXXSRCS := source/School_projects/Subdivision/Code/Main/main.cpp source/School_projects/Subdivision/Code/Main/HE_mesh_V3.cc
+CXXSRCS := 
 INCLUDE := -Isource/Window/glfw-3.2.1.bin.WIN64/include -Isource/Window/glad/include -Isource/Window
 
 LDIR := -Lsource/Window/glfw-3.2.1.bin.WIN64/lib-mingw-w64

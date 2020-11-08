@@ -128,7 +128,7 @@ bool Setup()
 	// Create mesh structure and mesh resource
 	std::vector<float> vbo;
 	std::vector<int> ebo;
-	meshData = HE_mesh_V3::LoadFromOBJ("../source/School_projects/Subdivision/Resources/cube.obj");
+	meshData = HE_mesh_V3::LoadFromOBJ("../source/from_school/Resources/cube.obj");
 	meshData->ToMeshResource(&vbo, &ebo);
 	myMesh = new MeshResource(true, true);
 	myMesh->SetUpVBO(&vbo[0], vbo.size());
