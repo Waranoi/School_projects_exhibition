@@ -5,35 +5,28 @@ layout(location=1) in vec3 vertPos;
 layout(location=2) in vec3 normal;
 out vec3 Color;
 
-uniform int wireframe;
-uniform vec3 lightPos;
-uniform vec3 ambientColor;
-uniform vec3 diffuseColor;
-uniform vec3 specColor;
-uniform float shininess;
-uniform float screenGamma;
+//Light
+vec3 light_pos;
+vec3 ambient_col;
+vec3 diffuse_col;
+float shine;
+
+uniform int invertColor;
+uniform int withUV;
 
 void main()
 {
-	vec3 theColor = ambientColor;
-	vec3 L = normalize(lightPos - vertPos);
-	vec3 V = normalize(-vertPos);
-	vec3 N = normalize(normal);
-	float specular = 0.0;
-
-	if (dot(N, L) > 0)
+    if (withUV == 0)
+    {
+        Color = vec3(1,0,0);
+        return;
+    }
+	if (invertColor == 1)
 	{
-		vec3 H = normalize(L + V);
-		float specAngle = max(dot(N, H), 0.0);
-		specular = pow(specAngle, shininess);
-		
-		theColor = theColor + clamp(dot(N, L), 0, 1) * diffuseColor;
+	    Color = vec3(1, 1, 1) - texture(texSamp, uv).rgb;
 	}
-
-	vec3 colorGammaCorrected = pow(theColor, vec3(1.0/screenGamma));
-	Color = texture(texSamp, uv).rgb;// * theColor;// + specular * specColor; Specular är trasig
-	if (wireframe == 1)
+	else
 	{
-//	    Color = vec3(1,0,0);
+        Color = texture(texSamp, uv).rgb;
 	}
 }

@@ -11,5 +11,6 @@ public:
 	~TextureResource();
 	void LoadFromFile(const char* filename);
 	void LoadFromBuffer(unsigned char* imageBuffer, int width, int height);
+	void BindTexture();
 	static unsigned char* Stbi_load(const char* filename, int* widthOUT, int* heightOUT, int channels);
 };

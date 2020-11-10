@@ -39,5 +39,9 @@ void GraphicsNode::Draw()
 {
 	shaderPointer->UseProgram();
 	shaderPointer->UpdateRotation(matrix);
+	glUniform1i(glGetUniformLocation(shaderPointer->GetProgram(), "withUV"), (int)meshPointer->withUV);
+	if (meshPointer->withUV == true)
+		texturePointer->BindTexture();
+
 	meshPointer->Draw();
 }

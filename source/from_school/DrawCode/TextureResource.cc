@@ -52,3 +52,8 @@ unsigned char* TextureResource::Stbi_load(const char* filename, int* widthOUT, i
 	int comp;
 	return stbi_load(filename, widthOUT, heightOUT, &comp, channels);
 }
+
+void TextureResource::BindTexture()
+{
+	glBindTexture(GL_TEXTURE_2D, TBO);
+}

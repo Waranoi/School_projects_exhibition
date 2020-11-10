@@ -16,6 +16,7 @@ public:
 	inline Vector4D operator+(const Vector4D& addWith); /**Returnerar en ny Vector4D med v�rdena x = operand1.x + operand2.x, y = operand1.y + operand2.y, z = operand1.z + operand2.z, 1 */
 	inline Vector4D operator-(const Vector4D& subtractWith); /**Returnerar en ny Vector4D med v�rdena x = operand1.x - operand2.x, y = operand1.y - operand2.y, z = operand1.z - operand2.z, 1 */
 	inline Vector4D operator*(const float& multiplyWith); /**Returnerar en ny Vector4D d�r operand1 har blivit f�rl�ngd med operand2 i.e. varje v�rde hos operand1 har blivit multiplicerad med operand2 f�rutom w */
+	inline bool operator==(const Vector4D& compare);
 	inline float operator*(const Vector4D& productWith); /**Returnerar skal�rprodukten av operand1 och operand2 */
 	inline Vector4D CrossProduct(const Vector4D& productWith); /**Returnerar kryssprodukten av operand1 och operand2 */
 	inline float operator[](int i)const; /**L�ter dig h�mta ut v�rdet p� plats 'i' inuti arrayen inom klassen */
@@ -46,7 +47,26 @@ public:
 	inline static Matrix4D SetTranslation(float x, float y, float z);
 	inline static Matrix4D CreateScalingMatrix(float scaleX, float scaleY, float scaleZ);
 	inline static Matrix4D CreateMatrixRotFromQuaternion(float x, float y, float z, float w);
+	inline void SetValue(int i, float value);
 };
+class Plane
+{
+public:
+	Vector4D point;
+	Vector4D normal;
+	inline Plane();
+	inline Plane(Vector4D point, Vector4D normal);
+};
+class Ray
+{
+public:
+	Vector4D point;
+	Vector4D direction;
+	inline Ray();
+	inline Ray(Vector4D point, Vector4D direction);
+	inline bool Intersect(Plane plane, Vector4D *outResult); //Returns false if no intersection was found or if intersection was found in the wrong direction
+};
+
 Matrix4D::Matrix4D()
 {
 	matrixArr[0] = 1;
@@ -283,6 +303,11 @@ Matrix4D Matrix4D::CreateMatrixRotFromQuaternion(float x, float y, float z, floa
 	return mat;
 }
 
+void Matrix4D::SetValue(int i, float value)
+{
+	matrixArr[i] = value;
+}
+
 Vector4D::Vector4D()
 {
 	vectorArr[0] = 0;
@@ -325,6 +350,10 @@ float Vector4D::operator*(const Vector4D& productWith)
 {
 	return vectorArr[0] * productWith[0] + vectorArr[1] * productWith[1] + vectorArr[2] * productWith[2];
 }
+bool Vector4D::operator==(const Vector4D& compare)
+{
+	return (vectorArr[0] == compare.vectorArr[0] && vectorArr[1] == compare.vectorArr[1] && vectorArr[2] == compare.vectorArr[2]);
+}
 Vector4D Vector4D::CrossProduct(const Vector4D& productWith)
 {
 	return Vector4D(vectorArr[1] * productWith[2] - vectorArr[2] * productWith[1], vectorArr[2] * productWith[0] - vectorArr[0] * productWith[2], vectorArr[0] * productWith[1] - vectorArr[1] * productWith[0]);
@@ -360,4 +389,42 @@ void Vector4D::DivideByW()
 	vectorArr[1] = vectorArr[1] / vectorArr[3];
 	vectorArr[2] = vectorArr[2] / vectorArr[3];
 	vectorArr[3] = vectorArr[3] / vectorArr[3];
+}
+
+Plane::Plane()
+{
+	point = Vector4D();
+	normal = Vector4D(1, 0, 0);
+}
+
+Plane::Plane(Vector4D point, Vector4D normal)
+{
+	this->point = point;
+	this->normal = normal;
+}
+
+Ray::Ray()
+{
+	point = Vector4D();
+	direction = Vector4D(1, 0, 0);
+}
+
+Ray::Ray(Vector4D point, Vector4D direction)
+{
+	this->point = point;
+	this->direction = direction;
+}
+
+bool Ray::Intersect(Plane plane, Vector4D *outResult)
+{
+	float denominator = this->direction * plane.normal;
+	if (denominator == 0)
+		false;
+
+	float scalar = (plane.point - this->point) * plane.normal / denominator; //Returns the scalar s used to define the point of intersection through s * direction + point. If s is negative set scalar to 0.
+	if (scalar < 0)
+        return false;
+
+    *outResult = this->direction * scalar + this->point;
+    return true;
 }
