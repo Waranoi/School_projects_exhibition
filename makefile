@@ -76,7 +76,7 @@ $(BIN)/%.o: %.c
 
 .PHONY: clean
 clean:
-	$(shell rmdir /Q /S "$(BIN)" )
+	rmdir /Q /S $(BIN)
 
 -include $(DEPS)
 
