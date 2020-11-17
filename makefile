@@ -1,11 +1,11 @@
 # This makefile automatically adds all directories and sub-directories under the 'source' directory as c-source folders, cpp-source folders and include folders.
-# If you want to exclude one or more folders from this automated process then add the folders to the EXCLUDE variable.
+# If you want to exclude one or more folders from this automated process then add the folders to the EXCLUDEDIRS variable.
 # You can manually add source and include files below, libraries and library folders have to be added manually.
 
-EXCLUDE := source/Window source/from_school/Collision
+EXCLUDESRCS := 
+EXCLUDEDIRS := source/Window source/from_school/Collision
 
-CSRCS := source/Window/glad/src/glad.c
-CXXSRCS := 
+SRCS := source/Window/glad/src/glad.c
 INCLUDE := -Isource/Window/glfw-3.2.1.bin.WIN64/include -Isource/Window/glad/include -Isource/Window -Isource/from_school/Collision
 
 LDIR := -Lsource/Window/glfw-3.2.1.bin.WIN64/lib-mingw-w64
@@ -36,28 +36,30 @@ OL := -O0
 endif
 
 # Store path to source files, in a convenient format
-SRCDIRS := $(patsubst %/,%,$(dir $(CSRCS)) $(dir $(CXXSRCS)))
+SRCDIRS := $(patsubst %/,%,$(dir $(SRCS)))
 # Add source root as source directory
 SRCDIRS += $(SRCROOT)
-# Add all folders below source root as source directories, in a convenient format. Folders to and below the ones specified in the EXCLUDE variable are ignored
+# Add all folders below source root as source directories, in a convenient format. Folders to and below the ones specified in the EXCLUDEDIRS variable are ignored
 SRCDIRS += $(subst \,/,$(shell $(FINDSRCDIRS)))
 # Remove excluded folders from source directories
-SRCDIRS := $(filter-out $(addsuffix %,$(EXCLUDE)),$(SRCDIRS))
+SRCDIRS := $(filter-out $(addsuffix %,$(EXCLUDEDIRS)),$(SRCDIRS))
 
 # Find all source files in all source directories
-CSRCS += $(wildcard $(SRCDIRS:%=%/*.c))
-CXXSRCS += $(wildcard $(SRCDIRS:%=%/*.cpp))
-CXXSRCS += $(wildcard $(SRCDIRS:%=%/*.cc))
+SRCS += $(wildcard $(SRCDIRS:%=%/*.c))
+SRCS += $(wildcard $(SRCDIRS:%=%/*.cpp))
+SRCS += $(wildcard $(SRCDIRS:%=%/*.cc))
+# Remove excluded files from source files
+SRCS := $(filter-out $(EXCLUDESRCS),$(SRCS))
 # Set all source directories as include folders, in a valid format
 INCLUDE += $(SRCDIRS:%=-I%) -MMD -MP
 
 # TODO Remember to check for duplicates and abort if found
 # Create object and dependency files from source files below the binary folder
-OBJS := $(CSRCS:%.c=$(BIN)/%.o) $(filter %.o,$(CXXSRCS:%.cpp=$(BIN)/%.o) $(CXXSRCS:%.cc=$(BIN)/%.o))
+OBJS := $(filter %.o,$(SRCS:%.c=$(BIN)/%.o) $(SRCS:%.cpp=$(BIN)/%.o) $(SRCS:%.cc=$(BIN)/%.o))
 DEPS := $(OBJS:.o=.d)
 
 # List of binary directories
-BINDIRS := $(BIN) $(patsubst %,build/%,$(dir $(CSRCS)) $(dir $(CXXSRCS)))
+BINDIRS := $(BIN) $(patsubst %,build/%,$(dir $(SRCS)))
 
 # Dummy variable that's never used. Evaluated immidiately which creates all the needed binary directories
 create-output-directories := $(shell for %%f in ($(subst /,\,$(BINDIRS))) do if not exist %%f (mkdir %%f))
