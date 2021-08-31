@@ -535,7 +535,7 @@ void MeshResource::LoadFromOBJ(const char* filePath, std::vector<float>* vertexB
 	(*indexBuf) = indices;
 }
 
-MeshResource* MeshResource::LoadWithBoundingBoxFromOBJ(char* filePath, bool withUV, bool withNormal, float *boxDimensions, float *boxOrigin)
+MeshResource* MeshResource::LoadWithBoundingBoxFromOBJ(const char* filePath, bool withUV, bool withNormal, float *boxDimensions, float *boxOrigin)
 {
 	std::ifstream fileStream(filePath, std::ios::in);
 	if (!fileStream.is_open()) {
@@ -771,7 +771,7 @@ MeshResource* MeshResource::LoadWithBoundingBoxFromOBJ(char* filePath, bool with
 	return mesh;
 }
 
-MeshResource* MeshResource::LoadWithBoundingBoxFromOBJ(char* filePath, bool withUV, bool withNormal, float mass, Vector4D *centerOfMass, Matrix4D *inertiaTensor, float *boxDimensions, float *boxOrigin)
+MeshResource* MeshResource::LoadWithBoundingBoxFromOBJ(const char* filePath, bool withUV, bool withNormal, float mass, Vector4D *centerOfMass, Matrix4D *inertiaTensor, float *boxDimensions, float *boxOrigin)
 {
 	std::ifstream fileStream(filePath, std::ios::in);
 	if (!fileStream.is_open()) {
@@ -1036,7 +1036,7 @@ MeshResource* MeshResource::LoadWithBoundingBoxFromOBJ(char* filePath, bool with
 	return mesh;
 }
 
-MeshResource* MeshResource::LoadWithBoundingBoxFromOBJ(char* filePath, bool withUV, bool withNormal, float mass, Vector4D *centerOfMass, Matrix4D *inertiaTensor, float *boxDimensions, float *boxOrigin, std::vector<Vector4D> *polygon)
+MeshResource* MeshResource::LoadWithBoundingBoxFromOBJ(const char* filePath, bool withUV, bool withNormal, float mass, Vector4D *centerOfMass, Matrix4D *inertiaTensor, float *boxDimensions, float *boxOrigin, std::vector<Vector4D> *polygon)
 {
 	std::ifstream fileStream(filePath, std::ios::in);
 	if (!fileStream.is_open()) {

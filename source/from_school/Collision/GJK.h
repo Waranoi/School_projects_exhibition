@@ -5,7 +5,7 @@
 #ifndef GSCEPT_LAB_ENV_GJKCHECK_H
 #define GSCEPT_LAB_ENV_GJKCHECK_H
 
-#include "../Math/myMathLib.h"
+#include "myMathLib.h"
 
 struct SupportPoint
 {

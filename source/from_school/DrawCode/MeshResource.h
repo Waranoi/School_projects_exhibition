@@ -22,8 +22,8 @@ public:
 	static MeshResource* Cube();
 	static MeshResource* LoadFromOBJ(const char* filePath, bool withUV, bool withNormal);
 	static void LoadFromOBJ(const char* filePath, std::vector<float>* vertexBuf, std::vector<int>* indexBuf);
-	static MeshResource* LoadWithBoundingBoxFromOBJ(char* filePath, bool withUV, bool withNormal, float *boxDimensions, float *boxOrigin); //boxDimension and boxOrigin are both float[3]
-	static MeshResource* LoadWithBoundingBoxFromOBJ(char* filePath, bool withUV, bool withNormal, float mass, Vector4D *centerOfMass, Matrix4D *inertiaTensor, float *boxDimensions, float *boxOrigin); //boxDimension and boxOrigin are both float[3]
-	static MeshResource* LoadWithBoundingBoxFromOBJ(char* filePath, bool withUV, bool withNormal, float mass, Vector4D *centerOfMass, Matrix4D *inertiaTensor, float *boxDimensions, float *boxOrigin, std::vector<Vector4D> *polygon); //boxDimension and boxOrigin are both float[3]
+	static MeshResource* LoadWithBoundingBoxFromOBJ(const char* filePath, bool withUV, bool withNormal, float *boxDimensions, float *boxOrigin); //boxDimension and boxOrigin are both float[3]
+	static MeshResource* LoadWithBoundingBoxFromOBJ(const char* filePath, bool withUV, bool withNormal, float mass, Vector4D *centerOfMass, Matrix4D *inertiaTensor, float *boxDimensions, float *boxOrigin); //boxDimension and boxOrigin are both float[3]
+	static MeshResource* LoadWithBoundingBoxFromOBJ(const char* filePath, bool withUV, bool withNormal, float mass, Vector4D *centerOfMass, Matrix4D *inertiaTensor, float *boxDimensions, float *boxOrigin, std::vector<Vector4D> *polygon); //boxDimension and boxOrigin are both float[3]
 };
 

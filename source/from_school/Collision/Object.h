@@ -5,8 +5,8 @@
 #ifndef GSCEPT_LAB_ENV_OBJECT_H
 #define GSCEPT_LAB_ENV_OBJECT_H
 
-#include "../DrawCode/GraphicsNode.h"
-#include "../Math/myMathLib.h"
+#include "GraphicsNode.h"
+#include "myMathLib.h"
 #include "BoundingBox.h"
 #include "GJK.h"
 

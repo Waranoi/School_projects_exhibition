@@ -8,7 +8,7 @@
 #include <vector>
 #include "BoundingBox.h"
 #include "Object.h"
-#include "../Math/myMathLib.h"
+#include "myMathLib.h"
 #include "Quad.h"
 
 class AABBManager

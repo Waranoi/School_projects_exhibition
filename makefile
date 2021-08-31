@@ -2,11 +2,14 @@
 # If you want to exclude one or more folders from this automated process then add the folders to the EXCLUDEDIRS variable.
 # You can manually add source and include files below, libraries and library folders have to be added manually.
 
-EXCLUDESRCS := 
-EXCLUDEDIRS := source/Window source/from_school/Collision
+EXE := Subdivision
+SRCAPP := source/Applications/SubdivisionApp.cpp
 
-SRCS := source/Window/glad/src/glad.c
-INCLUDE := -Isource/Window/glfw-3.2.1.bin.WIN64/include -Isource/Window/glad/include -Isource/Window -Isource/from_school/Collision
+EXCLUDESRCS := 
+EXCLUDEDIRS := source/Window source/from_school/Collision/mains source/Applications
+
+SRCS := source/Window/glad/src/glad.c $(SRCAPP)
+INCLUDE := -Isource/Window/glfw-3.2.1.bin.WIN64/include -Isource/Window/glad/include -Isource/Window
 
 LDIR := -Lsource/Window/glfw-3.2.1.bin.WIN64/lib-mingw-w64
 LIBS := -lglfw3 -lopengl32 -lgdi32 -lcomdlg32 -lole32
@@ -16,7 +19,6 @@ LIBS := -lglfw3 -lopengl32 -lgdi32 -lcomdlg32 -lole32
 ########## DO NOT EDIT ANYTHING BELOW THIS ##########
 
 # Constants
-EXE := Subdivision
 BIN := build
 SRCROOT = source
 

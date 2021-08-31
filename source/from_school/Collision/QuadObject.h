@@ -5,11 +5,11 @@
 #ifndef GSCEPT_LAB_ENV_QUAD_H
 #define GSCEPT_LAB_ENV_QUAD_H
 
-#include "../Math/myMathLib.h"
-#include "../DrawCode/MeshResource.h"
-#include "../DrawCode/TextureResource.h"
-#include "../DrawCode/ShaderObject.h"
-#include "../DrawCode/GraphicsNode.h"
+#include "myMathLib.h"
+#include "MeshResource.h"
+#include "TextureResource.h"
+#include "ShaderObject.h"
+#include "GraphicsNode.h"
 
 struct QuadObject
 {
@@ -95,16 +95,16 @@ private:
     {
         //Get texture and initialize texture resource
         int width, height;
-        unsigned char *imgBuffer = TextureResource::Stbi_load("resources/fillerimg.jpg", &width, &height, 3);
+        unsigned char *imgBuffer = TextureResource::Stbi_load("../source/from_school/Resources/fillerimg.jpg", &width, &height, 3);
         TextureResource *textureResource = new TextureResource();
         textureResource->LoadFromBuffer(imgBuffer, width, height);
 
         //Initialize shader
         ShaderObject *shader = new ShaderObject();
-        shader->LoadShader("resources/vs.txt", "resources/fs.txt");
+        shader->LoadShader("../source/from_school/Resources/vs.txt", "../source/from_school/Resources/fs.txt");
 
         //Create Mesh resource
-        MeshResource *meshResource = MeshResource::LoadFromOBJ("resources/quad.obj", true, true);
+        MeshResource *meshResource = MeshResource::LoadFromOBJ("../source/from_school/Resources/quad.obj", true, true);
 
         //Set up my graphics node
         obj.SetMeshResource(std::shared_ptr<MeshResource>(meshResource));

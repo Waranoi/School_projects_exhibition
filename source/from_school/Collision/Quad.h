@@ -5,7 +5,7 @@
 #ifndef GSCEPT_LAB_ENV_QUAD_H
 #define GSCEPT_LAB_ENV_QUAD_H
 
-#include "../Math/myMathLib.h"
+#include "myMathLib.h"
 
 struct Quad
 {
