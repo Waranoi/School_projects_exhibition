@@ -34,7 +34,7 @@ endef
 
 # Command line arguments
 ifndef OL
-OL := -O0
+OL := -O3
 endif
 
 # Store path to source files, in a convenient format

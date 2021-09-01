@@ -179,12 +179,13 @@ void Application_loop()
 		if (ImGui::Button("Subdivide"))
 		{
 			// Subdivide
+			printf("Subdivision number: %d...\t", subdiv_counter);
 			std::chrono::time_point<std::chrono::system_clock> start;
 			start = std::chrono::system_clock::now();
 			meshData->Subdivide();
 			std::chrono::duration<float> elapsed_seconds = std::chrono::system_clock::now() - start;
 			float time = elapsed_seconds.count() * 1000;
-			printf("Subdivision number: %d Time taken (ms): %f\n", subdiv_counter, time);
+			printf("Time taken (ms): %f.\tReplacing displayed mesh resource... ", time);
 			subdiv_counter++;
 
 			// Get new mesh data
@@ -197,6 +198,7 @@ void Application_loop()
 			myMesh = new MeshResource(true, true);
 			myMesh->SetUpVBO(&vbo[0], vbo.size());
 			myMesh->SetUpEBO(&ebo[0], ebo.size());
+			printf("Finished.\n");
 		}
 		if (ImGui::Button("Wireframe"))
 		{
